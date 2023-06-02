@@ -1,0 +1,55 @@
+.screen{
+    box-shadow: 1px 1px 10px silver;
+    width: 70%;
+    margin: auto;
+    margin-top: 50px;
+    background-color: whitesmoke;
+}
+.topcomponent{
+    display: flex;
+    margin: 7px;
+
+}
+.score{
+   flex: 2;
+
+}
+.timer{
+    flex: 1;
+    text-align:  right; 
+    
+}
+.middlebox{
+    width: 70%;
+    margin: auto;
+    margin-top: 100px;
+}
+.secondbox{
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+.lastbox{
+    display: flex;
+    margin: auto;
+    text-align:  center;
+}
+.function{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin: 5px;
+}
+.clear{
+    background-color: red;
+    margin: 4px;
+    padding: 10px 10px;
+    border-radius: 5em ;
+    color: white;
+    background-color: red;
+    cursor: pointer;
+}
+.clear:hover{
+    background-color: indigo;
+}

@@ -1,0 +1,10 @@
+.textbox{
+    display: inline-block;
+    margin: auto;
+    width: 100%;
+    background-color: darkgrey;
+    text-align: center;
+    padding: 20px 1px;
+    color: black;
+    border-radius: 2em;
+}

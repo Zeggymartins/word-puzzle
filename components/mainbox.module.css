@@ -1,0 +1,7 @@
+.bigbox{
+    display:inline-block;
+    width: 80%;
+    margin: auto;
+    padding: 10px;
+   background-color: indigo;
+}

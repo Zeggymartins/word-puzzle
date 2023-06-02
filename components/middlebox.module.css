@@ -1,0 +1,10 @@
+.middlebox{
+    display: inline-block;
+    width: 30%;
+    margin: auto;
+    background-color: darkgrey;
+    text-align: center;
+    padding: 20px 1px;
+    color: black;
+    border-radius: 2em;
+}
