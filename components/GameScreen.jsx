@@ -6,7 +6,7 @@ import ButtonComponent from "./buttonComponent";
 import style from "./gamescreen.module.css";
 import Textboxcomponent from "./textboxcomponent";
 import { useState } from "react";
-import GenerateWord,{hasWord} from "../utils/word";
+import GenerateWord,{hasWord, IsinArray, shuffleWord} from "../utils/word";
 
 import { ToastContainer, toast } from 'react-toastify'
 
@@ -15,6 +15,9 @@ export default function GameScreen() {
   const [text, Settext]= useState("")
   const [generated_word, SetGeneratedWord]= useState({});
   const [counter, setCounter]= useState(0)
+  const [clear, SetClear]= useState(true)
+  const [listofLetters, SetListofLetters]= useState()
+  const [listofWords, SetlistofWords]= useState()
 
   function handle_word(){
   var output= GenerateWord(4)
@@ -23,17 +26,34 @@ export default function GameScreen() {
   }
  function handleCheck(){
   if(hasWord(text)){
-    toast.success("correct answer");
-    Settext("");
-  setCounter((prev_V)=>{return prev_V+ 1});
-}
+    if (!IsinArray(text, listofWords)){
+      SetlistofWords([...listofWords, text]);
+      toast.success("correct answer");
+      handleClear();
+    setCounter((prev_V)=>{return prev_V+ 1});
+    }
+     
   else{
-toast.error("wrong answer") 
-  }
+toast.error("word already exists") 
+  }}
+else{
+    toast.error("wrong answer")
  }
-
+}
+const letterComponents= listofLetters.map((letter, index)=>(
+  <ButtonComponent key={index} showtext={Settext} letter={letter.toUppercase()}/> 
+));
+function handleClear(){
+  Settext("");
+  SetClear(!clear);
+}
+const wordComponents= listofWords.map(word, index)=>(
+  <span key={index} className={style.word}>{word}</span>
+);
       
   return (
+    <div className={styles.row}>
+    <div className={styles.wordList}>{wordComponents}</div>
     <div className={style.screen}>
        <ToastContainer/>
       <div className={style.topcomponent}>
@@ -44,51 +64,32 @@ toast.error("wrong answer")
           <Boxcomponent display="Timer" />
         </div>
       </div>
-      <div className={style.middlebox}>
+      {/* <div className={style.middlebox}>
         <Textboxcomponent output={generated_word.shuffle_word} />
-      </div>
+      </div> */}
       <div className={style.secondbox}>
         <MiddleBox box={text}/>
       </div>
       <div className={style.lastbox}>
         <Mainbox>
-          <ButtonComponent showtext={Settext} letter="A"/> 
-          <ButtonComponent showtext={Settext} letter="B"/> 
-          <ButtonComponent showtext={Settext} letter="C"/> 
-          <ButtonComponent showtext={Settext} letter="D"/> 
-          <ButtonComponent showtext={Settext} letter="E"/> 
-          <ButtonComponent showtext={Settext} letter="F"/> 
-          <ButtonComponent showtext={Settext} letter="G"/> 
-          <ButtonComponent showtext={Settext}  letter="H"/> 
-          <ButtonComponent showtext={Settext} letter="I"/> 
-          <ButtonComponent showtext={Settext} letter="J"/> 
-          <ButtonComponent showtext={Settext} letter="K"/> 
-          <ButtonComponent showtext={Settext} letter="L"/> 
-          <ButtonComponent showtext={Settext} letter="M"/> 
-          <ButtonComponent showtext={Settext} letter="N"/> 
-          <ButtonComponent showtext={Settext} letter="O"/> 
-          <ButtonComponent showtext={Settext} letter="P"/> 
-          <ButtonComponent showtext={Settext} letter="Q"/> 
-          <ButtonComponent showtext={Settext} letter="R"/> 
-          <ButtonComponent showtext={Settext} letter="S"/> 
-          <ButtonComponent showtext={Settext} letter="T"/> 
-          <ButtonComponent showtext={Settext} letter="U"/> 
-          <ButtonComponent showtext={Settext} letter="V"/> 
-          <ButtonComponent showtext={Settext} letter="W"/> 
-          <ButtonComponent showtext={Settext} letter="X"/> 
-          <ButtonComponent showtext={Settext} letter="Y"/> 
-          <ButtonComponent showtext={Settext} letter="Z"/> 
+          {clear ? letterComponents: <div>{letterComponents}</div>}
+          {/* <ButtonComponent showtext={Settext} letter="A"/>  */}
+          
         </Mainbox>
         
       </div>
       <div className={style.function}>
       <button className={style.clear} onClick={handleCheck}>Check word</button>
-      <button className={style.clear} onClick={()=>{Settext("")}}>Clear</button>
-      <button className={style.clear} onClick={handle_word}>Generate word</button>
+      <button className={style.clear} onClick={handleClear}>Clear</button>
+      <button className={style.clear} onClick={()=>{
+        const newword= GenerateWord(4)
+        SetListofLetters([...newword.shuffle_word]);
+      }}>Generate word</button>
       </div>
     
       
   
+    </div>
     </div>
   );
 }

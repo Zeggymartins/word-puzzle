@@ -107594,8 +107594,19 @@ const words = [
     }
     return false;
   }
+  export function IsinArray(para, ary){
+    controller= 0;
+    while(controller< ary.length){
+        const new_word= ary[controller]
+        if(word.toLowerCase== para.toLowerCase){
+            return true;
+        }
+    controller++
+         }
+         return false
+  }
   
-  function shuffleWord(parameter) {
+  export function shuffleWord(parameter) {
     var word = parameter;
     // control structure
     // looping and branching
