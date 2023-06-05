@@ -14,6 +14,7 @@ import { ToastContainer, toast } from 'react-toastify'
 export default function GameScreen() {
   const [text, Settext]= useState("")
   const [generated_word, SetGeneratedWord]= useState({});
+  const [counter, setCounter]= useState(0)
 
   function handle_word(){
   var output= GenerateWord(4)
@@ -22,8 +23,10 @@ export default function GameScreen() {
   }
  function handleCheck(){
   if(hasWord(text)){
-    toast.success("correct answer")
-  }
+    toast.success("correct answer");
+    Settext("");
+  setCounter((prev_V)=>{return prev_V+ 1});
+}
   else{
 toast.error("wrong answer") 
   }
@@ -35,7 +38,7 @@ toast.error("wrong answer")
        <ToastContainer/>
       <div className={style.topcomponent}>
         <div className={style.score}>
-          <Boxcomponent display="Score" />
+          <Boxcomponent display={`Score----${counter}`} />
         </div>
         <div className={style.timer}>
           <Boxcomponent display="Timer" />
