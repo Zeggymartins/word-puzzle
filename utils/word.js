@@ -107595,13 +107595,13 @@ const words = [
     return false;
   }
   export function IsinArray(para, ary){
-    controller= 0;
-    while(controller< ary.length){
-        const new_word= ary[controller]
-        if(word.toLowerCase== para.toLowerCase){
+   var i = 0;
+    while(i< ary.length){
+        const new_word= ary[i]
+        if(new_word.toLowerCase== para.toLowerCase){
             return true;
         }
-    controller++
+    i++
          }
          return false
   }
@@ -107620,3 +107620,7 @@ const words = [
     }
     return new_word;
   }
+//   const nextConfig= {
+    reactStrictmode: false
+//   }
+//   module.exports= nextConfig

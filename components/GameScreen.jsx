@@ -3,7 +3,7 @@ import Boxcomponent from "./Boxcomponent";
 import MiddleBox from "./middleboxcomponent";
 import Mainbox from "./mainboxcomponet";
 import ButtonComponent from "./buttonComponent";
-import style from "./gamescreen.module.css";
+import styles from "./gamescreen.module.css";
 import Textboxcomponent from "./textboxcomponent";
 import { useState } from "react";
 import GenerateWord,{hasWord, IsinArray, shuffleWord} from "../utils/word";
@@ -16,13 +16,13 @@ export default function GameScreen() {
   const [generated_word, SetGeneratedWord]= useState({});
   const [counter, setCounter]= useState(0)
   const [clear, SetClear]= useState(true)
-  const [listofLetters, SetListofLetters]= useState()
-  const [listofWords, SetlistofWords]= useState()
+  const [listofLetters, SetListofLetters]= useState([])
+  const [listofWords, SetlistofWords]= useState([])
 
   function handle_word(){
   var output= GenerateWord(4)
 
-    SetGeneratedWord(output)
+    SetGeneratedWord(output);
   }
  function handleCheck(){
   if(hasWord(text)){
@@ -40,37 +40,38 @@ else{
     toast.error("wrong answer")
  }
 }
-const letterComponents= listofLetters.map((letter, index)=>(
-  <ButtonComponent key={index} showtext={Settext} letter={letter.toUppercase()}/> 
-));
+
+const letterComponents= listofLetters.map((letter, index)=>{
+ return <ButtonComponent key={index} showtext={Settext} letter={letter.toUpperCase()}/> 
+});
 function handleClear(){
   Settext("");
   SetClear(!clear);
 }
-const wordComponents= listofWords.map(word, index)=>(
-  <span key={index} className={style.word}>{word}</span>
-);
+const wordComponents= listofWords.map((word, index)=>{
+ return <span key={index} className={styles.word}>{word}</span>
+});
       
   return (
     <div className={styles.row}>
     <div className={styles.wordList}>{wordComponents}</div>
-    <div className={style.screen}>
+    <div className={styles.screen}>
        <ToastContainer/>
-      <div className={style.topcomponent}>
-        <div className={style.score}>
+      <div className={styles.topcomponent}>
+        <div className={styles.score}>
           <Boxcomponent display={`Score----${counter}`} />
         </div>
-        <div className={style.timer}>
+        <div className={styles.timer}>
           <Boxcomponent display="Timer" />
         </div>
       </div>
       {/* <div className={style.middlebox}>
         <Textboxcomponent output={generated_word.shuffle_word} />
       </div> */}
-      <div className={style.secondbox}>
+      <div className={styles.secondbox}>
         <MiddleBox box={text}/>
       </div>
-      <div className={style.lastbox}>
+      <div className={styles.lastbox}>
         <Mainbox>
           {clear ? letterComponents: <div>{letterComponents}</div>}
           {/* <ButtonComponent showtext={Settext} letter="A"/>  */}
@@ -78,11 +79,11 @@ const wordComponents= listofWords.map(word, index)=>(
         </Mainbox>
         
       </div>
-      <div className={style.function}>
-      <button className={style.clear} onClick={handleCheck}>Check word</button>
-      <button className={style.clear} onClick={handleClear}>Clear</button>
-      <button className={style.clear} onClick={()=>{
-        const newword= GenerateWord(4)
+      <div className={styles.function}>
+      <button className={styles.clear} onClick={handleCheck}>Check word</button>
+      <button className={styles.clear} onClick={handleClear}>Clear</button>
+      <button className={styles.clear} onClick={()=>{
+        const newword= GenerateWord(4);
         SetListofLetters([...newword.shuffle_word]);
       }}>Generate word</button>
       </div>
